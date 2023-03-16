@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #count {
+            color: pink;
+            font-weight: bold;
+            font-size: 36px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>가속도 카운트업</h2>
+    <span id="count">0</span>
+    <script>
+
+        const targetCount = 8451235;
+        const countPlace = document.getElementById('count');
+        const duration = 3000;
+        const framePerSec = 144;
+        const totalFrame = framePerSec * (duration / 1000);
+
+
+
+        for (let i = 0; i < totalFrame; i++) {
+            setTimeout(() => {
+                printCount(Math.floor(targetCount * easeOutQuart(i / totalFrame)));
+            }, i * (1000 / framePerSec));
+        }
+        setTimeout(() => {
+            printCount(targetCount)
+        }, duration);
+
+        for (let i = 0; i < duration / 1000; i++) {
+            setTimeout(() => {
+                console.log(`${i + 1}s`)
+            }, i * 1000);
+        }
+
+        function printCount(number) {
+            countPlace.innerText = number.toLocaleString();
+        }
+        function easeOutQuart(x) {
+            return 1 - Math.pow(1 - x, 8);
+        }
+    </script>
+</body>
+
+</html>
