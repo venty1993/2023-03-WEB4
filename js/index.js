@@ -15,6 +15,11 @@ let 이전좌표 = window.scrollY;
 //반대는 위로 올린거다
 
 window.addEventListener('scroll', () => {
+
+    hambergerButton.classList.add('active')
+    hambergerModal.classList.add('hide')
+    hambergerModal.classList.add('go-back')
+
     if (window.scrollY < 100) {
         header.classList.remove('scrolled')
     } else {
@@ -41,3 +46,6 @@ hambergerButton.addEventListener('click', (e) => {
     hambergerModal.classList.toggle('go-back')
 
 })
+
+const countUpPlace = document.querySelector('.count-up');
+countUp(countUpPlace, Number(countUpPlace.innerText))
