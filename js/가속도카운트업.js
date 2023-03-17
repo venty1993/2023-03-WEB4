@@ -1,9 +1,5 @@
-function countUp(target, targetCount) {
-    const duration = 3000;
-    const framePerSec = 60;
+function countUp(target, targetCount, duration, framePerSec) {
     const totalFrame = framePerSec * (duration / 1000);
-
-
 
     for (let i = 0; i < totalFrame; i++) {
         setTimeout(() => {
