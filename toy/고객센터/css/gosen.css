@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.help-button {
+    display: block;
+    background-color: #7789E7;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+}
+
+
+.help-center {
+    width: 300px;
+    height: 400px;
+    box-shadow: 0px 0px 8px #00000080;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+}
+
+.help-header {
+    padding: 12px;
+    font-size: 14px;
+    color: white;
+    background-color: #7789E7;
+    text-align: center;
+}
+
+.input-container {
+    background-color: #7789E7;
+    padding: 0 16px;
+    padding-bottom: 8px;
+
+}
+
+.inner-container {
+    position: relative;
+
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    fill: #888;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 8px 16px;
+    padding-left: 32px;
+    box-sizing: border-box;
+}
+
+
+.search-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.help-center.flip {
+    height: 100px;
+}
+
+.help-center.flip>.input-container {
+    background-color: white;
+    padding-top: 8px;
+}
+
+.help-center.flip>.search-result {
+    display: none;
+}
+
+/*  */
+.help-button {
+    display: none;
+}
