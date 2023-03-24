@@ -279,49 +279,118 @@
     <script>
         const content = document.getElementsByClassName('content');
         const wrapper = document.querySelector('.wrapper');
+        const wrapperCenter = {
+            x: wrapper.getBoundingClientRect().left + wrapper.clientWidth / 2,
+            y: wrapper.getBoundingClientRect().top + wrapper.clientHeight / 2
+        }
         const degOrigin = 15;
         let index = 0;
+
+        let clickDegree = 0;
+        let clickNow = false;
+        // let nowDegree;
+
+        // apply(0);
+
+        // wrapper.addEventListener('mousedown', () => {
+        //     clickNow = true;
+        //     wrapper.style.transition = '0s';
+        // })
+        // wrapper.addEventListener('mouseup', () => {
+        //     clickNow = false;
+        //     apply(Math.round(Math.abs(nowDegree / 15)));
+        //     wrapper.style.transition = '0.7s';
+
+        // })
+
+        // window.addEventListener('mousemove', (e) => {
+        //     e.preventDefault();
+        //     if (clickNow) {
+
+        //         const x = wrapperCenter.x - e.clientX
+        //         const y = wrapperCenter.y - e.clientY
+        //         console.log(e.clientX, e.clientY);
+
+        //         const radian = Math.atan2(y, x); // atan2함수
+        //         const degree = (radian * 180 / Math.PI).toFixed(0) - 90;  // radian -> 
+        //         nowDegree = -15 * index + degree;
+        //         wrapper.style.transform = `rotate(${nowDegree}deg)`
+
+        //     }
+        // })
+
+        wrapper.addEventListener('mousedown', (e) => {
+            clickNow = true;
+            clickDegree = getDegree(e);
+            wrapper.style.transition = '0s';
+
+
+        })
+
+        window.addEventListener('mousemove', (e) => {
+            e.preventDefault();
+            if (clickNow) {
+                wrapper.style.transform = `rotate(-${degOrigin * index - (getDegree(e) - clickDegree)}deg)`
+            }
+
+        })
+
+        window.addEventListener('mouseup', () => {
+            clickNow = false;
+            wrapper.style.transition = '0.7s';
+            console.log(index);
+            const moveDegree = getDegree(e) - clickDegree;
+
+            apply(index - (moveDegree / 15))
+
+        })
+
+
+        function getDegree(e) {
+            const x = wrapperCenter.x - e.clientX
+            const y = wrapperCenter.y - e.clientY
+
+            const radian = Math.atan2(y, x); // atan2함수
+            const degree = (radian * 180 / Math.PI).toFixed(0) - 90;  // radian -> 
+
+            return degree;
+        }
+
+
+
 
         for (let i = 0; i < content.length; i++) {
             content[i].style.transform = `translateY(-900px) translateX(-50%) rotate(${degOrigin * i}deg)`
 
             content[i].addEventListener('click', () => {
-                index = i;
-                apply();
-                for (let j = 0; j < content.length; j++) {
-                    content[j].style.zIndex = '0';
-                    if (Math.abs(i - j) < 5) {
-                        content[j].style.zIndex = `${50 - Math.abs(i - j)}`;
-                    }
-                }
-                // 아래꺼 줄여서 line 293~295로 만듦!
-
-                // if (i - 4 >= 0) {
-                //     content[i - 4].style.zIndex = '46';
-                // }
-                // if (i - 3 >= 0) {
-                //     content[i - 3].style.zIndex = '47';
-                // }
-                // if (i - 2 >= 0) {
-                //     content[i - 2].style.zIndex = '48';
-                // }
-                // if (i - 1 >= 0) {
-                //     content[i - 1].style.zIndex = '49';
-                // }
-                // content[i].style.zIndex = '50';
-
-                // 이하 if문 노가다 생략..
-                // content[i + 1].style.zIndex = '49';
-                // content[i + 2].style.zIndex = '48';
-                // content[i + 3].style.zIndex = '47';
-                // content[i + 4].style.zIndex = '46';
-
+                apply(i);
             })
             console.log(content[i]);
         }
 
-        function apply() {
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' && index !== 0) {
+                apply(index - 1);
+            } else if (e.key === 'ArrowRight' && index !== content.length - 1) {
+                apply(index + 1);
+            }
+
+        })
+
+
+
+        function apply(nowIndex) {
+            index = nowIndex;
             wrapper.style.transform = `rotate(-${degOrigin * index}deg)`
+            for (let j = 0; j < content.length; j++) {
+                content[j].style.zIndex = '0';
+                if (Math.abs(nowIndex - j) < 9) {
+                    content[j].style.display = `flex`;
+                    content[j].style.zIndex = `${9 - Math.abs(nowIndex - j)}`;
+                } else {
+                    content[j].style.display = `none`;
+                }
+            }
         }
 
     </script>
