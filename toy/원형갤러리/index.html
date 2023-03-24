@@ -335,13 +335,13 @@
 
         })
 
-        window.addEventListener('mouseup', () => {
+        window.addEventListener('mouseup', (e) => {
             clickNow = false;
             wrapper.style.transition = '0.7s';
             console.log(index);
             const moveDegree = getDegree(e) - clickDegree;
 
-            apply(index - (moveDegree / 15))
+            apply(index - Math.round(moveDegree / 15))
 
         })
 
