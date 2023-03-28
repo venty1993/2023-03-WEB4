@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .chart {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background-color: red;
+            /* background: conic-gradient(red 54%, 0, blue 68%, 0, yellow 100%) */
+            -webkit-mask-image: radial-gradient(transparent 60%, 0, black);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chart">
+
+    </div>
+    <script>
+        const 후라이드 = 1200;
+        const 간장 = 1320;
+        const 양념 = 1783;
+
+        const 전체합 = 후라이드 + 간장 + 양념;
+
+        const 후라이드비율 = 후라이드 / 전체합;
+        const 간장비율 = 간장 / 전체합;
+        const 양념비율 = 양념 / 전체합;
+
+        console.log(후라이드비율, 간장비율, 양념비율);
+
+
+        const chart = document.querySelector('.chart');
+
+        chart.style.background = `conic-gradient(red ${후라이드비율 * 100}%, 0, blue ${(간장비율 + 후라이드비율) * 100}%, 0, yellow  ${(양념비율 + 간장비율 + 후라이드비율) * 100}%)`
+
+
+    </script>
+</body>
+
+</html>
