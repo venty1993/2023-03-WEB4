@@ -11,9 +11,17 @@
             width: 500px;
             height: 500px;
             border-radius: 50%;
-            background-color: red;
-            /* background: conic-gradient(red 54%, 0, blue 68%, 0, yellow 100%) */
+            overflow: hidden;
             -webkit-mask-image: radial-gradient(transparent 60%, 0, black);
+            position: relative;
+        }
+
+        .chart-content {
+            width: 100%;
+            height: 100%;
+            /* background: conic-gradient(red 54%, 0, transparent); */
+            position: absolute;
+            top: 0;
         }
     </style>
 </head>
@@ -22,23 +30,61 @@
     <div class="chart">
 
     </div>
+
     <script>
-        const 후라이드 = 1200;
-        const 간장 = 1320;
-        const 양념 = 1783;
+        const 치킨 = [2000, 1000, 1500, 1300];
+        const 차트 = document.querySelector('.chart');
+        const 차트파이 = [];
+        const 차트시작점 = [];
+        const 컬러프리셋 = ['B2A4FF', 'FFB4B4', 'FFB4B4', 'FDF7C3']
 
-        const 전체합 = 후라이드 + 간장 + 양념;
+        let 전체합 = 0;
 
-        const 후라이드비율 = 후라이드 / 전체합;
-        const 간장비율 = 간장 / 전체합;
-        const 양념비율 = 양념 / 전체합;
+        for (let i = 0; i < 치킨.length; i++) {
+            전체합 += 치킨[i];
+            // 전체합 = 전체합 + 치킨[i];
+        }
 
-        console.log(후라이드비율, 간장비율, 양념비율);
+        for (let i = 0; i < 치킨.length; i++) {
+            const chartContent = document.createElement('div');
+            chartContent.classList.add('chart-content');
+            차트파이.push(chartContent);
+            차트.appendChild(chartContent);
+
+        }
+
+        const 퍼센티지 = []
+        for (let i = 0; i < 치킨.length; i++) {
+            퍼센티지[i] = 치킨[i] / 전체합;
+            차트시작점[i] = 0;
+            for (let j = 0; j < i; j++) {
+                차트시작점[i] += 퍼센티지[j];
+            }
+
+        }
+
+        console.log(퍼센티지);
+        console.log(차트시작점)
+
+        for (let i = 0; i < 치킨.length; i++) {
+            차트파이[i].style.background = `conic-gradient(#${컬러프리셋[i]} ${퍼센티지[i] * 100}%, 0, transparent)`
+        }
 
 
-        const chart = document.querySelector('.chart');
+        // const 전체합 = 후라이드 + 간장 + 양념 + 고추바사삭;
 
-        chart.style.background = `conic-gradient(red ${후라이드비율 * 100}%, 0, blue ${(간장비율 + 후라이드비율) * 100}%, 0, yellow  ${(양념비율 + 간장비율 + 후라이드비율) * 100}%)`
+        // const 후라이드비율 = 후라이드 / 전체합;
+        // const 간장비율 = 간장 / 전체합;
+        // const 양념비율 = 양념 / 전체합;
+        // const 고추바사삭비율 = 고추바사삭비율 / 전체합;
+
+        // console.log(후라이드비율, 간장비율, 양념비율);
+
+
+        // const chart = document.querySelector('.chart');
+
+        // chart.style.background = `conic-gradient(red ${후라이드비율 * 100}%, 0, blue ${(간장비율 + 후라이드비율) * 100}%, 0, yellow  ${(양념비율 + 간장비율 + 후라이드비율) * 100}%)`
+
 
 
     </script>
