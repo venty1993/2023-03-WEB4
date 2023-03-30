@@ -6,22 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="getDegree.js"></script>
     <style>
         .chart {
             width: 500px;
             height: 500px;
+            position: relative;
+        }
+
+        .chart-pie-wrapper {
             border-radius: 50%;
             overflow: hidden;
             -webkit-mask-image: radial-gradient(transparent 60%, 0, black);
-            position: relative;
+            position: absolute;
+            top: 0;
+            transition: 0.3s;
+            width: 100%;
+            height: 100%;
         }
 
         .chart-content {
             width: 100%;
             height: 100%;
             /* background: conic-gradient(red 54%, 0, transparent); */
-            position: absolute;
-            top: 0;
+        }
+
+        .on-mouse-else {
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -36,7 +47,7 @@
         const 차트 = document.querySelector('.chart');
         const 차트파이 = [];
         const 차트시작점 = [];
-        const 컬러프리셋 = ['B2A4FF', 'FFB4B4', 'FFB4B4', 'FDF7C3']
+        const 컬러프리셋 = ['B2A4FF', 'FFB4B4', 'B4FFB4', 'FDF7C3']
 
         let 전체합 = 0;
 
@@ -46,10 +57,15 @@
         }
 
         for (let i = 0; i < 치킨.length; i++) {
+            const chartPieWrapper = document.createElement('div');
             const chartContent = document.createElement('div');
+            chartPieWrapper.classList.add('chart-pie-wrapper');
             chartContent.classList.add('chart-content');
+
+            차트.appendChild(chartPieWrapper);
+            chartPieWrapper.appendChild(chartContent);
+
             차트파이.push(chartContent);
-            차트.appendChild(chartContent);
 
         }
 
@@ -68,22 +84,39 @@
 
         for (let i = 0; i < 치킨.length; i++) {
             차트파이[i].style.background = `conic-gradient(#${컬러프리셋[i]} ${퍼센티지[i] * 100}%, 0, transparent)`
+            차트파이[i].style.transform = `rotate(${360 * 차트시작점[i]}deg)`
         }
 
+        차트.addEventListener('mousemove', (e) => {
+            차트파이애니메이션시작();
 
-        // const 전체합 = 후라이드 + 간장 + 양념 + 고추바사삭;
+            for (let i = 0; i < 차트시작점.length; i++) {
+                const 시작 = 차트시작점[i]
+                const 끝 = 차트시작점[i + 1] ? 차트시작점[i + 1] : 1;
 
-        // const 후라이드비율 = 후라이드 / 전체합;
-        // const 간장비율 = 간장 / 전체합;
-        // const 양념비율 = 양념 / 전체합;
-        // const 고추바사삭비율 = 고추바사삭비율 / 전체합;
-
-        // console.log(후라이드비율, 간장비율, 양념비율);
+                if (시작 * 360 < getDegree(차트, e) && 끝 * 360 > getDegree(차트, e)) {
+                    차트파이[i].parentNode.classList.remove('on-mouse-else');
+                }
 
 
-        // const chart = document.querySelector('.chart');
+            }
+        })
 
-        // chart.style.background = `conic-gradient(red ${후라이드비율 * 100}%, 0, blue ${(간장비율 + 후라이드비율) * 100}%, 0, yellow  ${(양념비율 + 간장비율 + 후라이드비율) * 100}%)`
+        차트.addEventListener('mouseleave', () => {
+            차트파이초기화();
+        })
+
+        function 차트파이애니메이션시작() {
+            for (let i = 0; i < 차트파이.length; i++) {
+                차트파이[i].parentNode.classList.add('on-mouse-else');
+            }
+        }
+
+        function 차트파이초기화() {
+            for (let i = 0; i < 차트파이.length; i++) {
+                차트파이[i].parentNode.classList.remove('on-mouse-else');
+            }
+        }
 
 
 
