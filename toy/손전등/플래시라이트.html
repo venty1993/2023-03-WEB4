@@ -35,19 +35,7 @@
             makeCurser.style.left = `${e.pageX}px`;
         })
 
-        window.addEventListener('click', (e) => {
-            const clickPos = {
-                x: e.pageX,
-                y: e.pageY
-            }
 
-            const mouseEvent = document.createEvent('MouseEvents');
-            mouseEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-            console.log(mouseEvent);
-
-            const clickPoint = document.elementFromPoint(clickPos.x, clickPos.y);
-            clickPoint.dispatchEvent(mouseEvent);
-        })
     </script>
 
 </body>
