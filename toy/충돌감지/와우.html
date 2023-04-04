@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+            background-color: pink;
+            position: absolute;
+            top: 100px;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <script>
+        const circle = document.getElementsByClassName('circle');
+
+        for (let i = 0; i < circle.length; i++) {
+            circle[i].style.left = `${(i + 1) * 500}px`
+        }
+
+
+
+        // 감지
+
+        // 원의 중점을 찾는다.
+
+        setInterval(() => {
+            const 반지름1 = circle[0].getBoundingClientRect().width / 2
+            const 반지름2 = circle[1].getBoundingClientRect().width / 2
+            const 충돌거리 = 반지름1 + 반지름2;
+            const 원의거리 = Math.abs(중심좌표(circle[0]) - 중심좌표(circle[1]));
+
+            if (원의거리 < 충돌거리) {
+                circle[1].style.left = `${중심좌표(circle[0]) + 충돌거리}px`
+            }
+        }, 100);
+
+
+
+        function 중심좌표(원) {
+            return 원.getBoundingClientRect().left + 원.getBoundingClientRect().width / 2;
+        }
+    </script>
+</body>
+
+</html>

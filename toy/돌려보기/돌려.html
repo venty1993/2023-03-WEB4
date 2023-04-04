@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .view {
+            width: 800px;
+            height: 400px;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        .view>div {
+            position: absolute;
+        }
+
+        .human {
+            height: 200px;
+            width: 100px;
+            border-radius: 50px 50px 0 0;
+            background-color: pink;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            bottom: 0px;
+
+        }
+
+        .building {
+            width: 150px;
+            height: 300px;
+            background-color: gray;
+            left: 60%;
+            bottom: 35%
+        }
+    </style>
+</head>
+
+<body>
+    <div class="view">
+        <div class="human">
+
+        </div>
+        <div class="building"></div>
+    </div>
+    <script>
+
+        const human = document.querySelector('.human');
+        const building = document.querySelector('.building');
+        rotateMove(human, 1)
+        rotateMove(building, -10)
+
+        function rotateMove(객체, 중심으로부터거리) {
+
+            const view = document.querySelector('.view');
+            const range = 중심으로부터거리
+            const startPoint = 50 - range / 2
+            view.addEventListener('mousemove', (e) => {
+
+                객체.style.left = `${(e.clientX / view.clientWidth) * range + startPoint}%`;
+                객체.style.zIndex = 중심으로부터거리
+            })
+        }
+    </script>
+</body>
+
+</html>
