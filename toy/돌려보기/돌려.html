@@ -34,34 +34,72 @@
             height: 300px;
             background-color: gray;
             left: 60%;
-            bottom: 35%
+            bottom: 0%;
+            transform: translate(-50%, -50%);
+        }
+
+        .text-box {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            border: 1px solid black;
+            border-radius: 16px;
+            padding: 12px;
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        .building2 {
+            width: 100px;
+            height: 50px;
+            background-color: gray;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 40%;
+            left: 12%;
         }
     </style>
 </head>
 
 <body>
     <div class="view">
+        <p class="text-box">
+            여기에 글이 들어가요
+            <br>
+            그냥 그렇다구요
+        </p>
         <div class="human">
 
         </div>
         <div class="building"></div>
+        <div class="building2"></div>
     </div>
     <script>
 
         const human = document.querySelector('.human');
         const building = document.querySelector('.building');
+        const building2 = document.querySelector('.building2');
+        const textBox = document.querySelector('.text-box');
         rotateMove(human, 1)
-        rotateMove(building, -10)
+        rotateMove(building, -3)
+        rotateMove(building2, -5)
+        rotateMove(textBox, 3)
 
         function rotateMove(객체, 중심으로부터거리) {
 
             const view = document.querySelector('.view');
             const range = 중심으로부터거리
+            const pov = 90;
             const startPoint = 50 - range / 2
-            view.addEventListener('mousemove', (e) => {
+            객체.style.zIndex = 중심으로부터거리
 
-                객체.style.left = `${(e.clientX / view.clientWidth) * range + startPoint}%`;
-                객체.style.zIndex = 중심으로부터거리
+            view.addEventListener('mousemove', (e) => {
+                const 마우스퍼센트 = e.clientX / view.clientWidth;
+                객체.style.transform = `translate(calc(${(마우스퍼센트 * range - range / 2) * pov}px - 50%), -50%)`;
+
             })
         }
     </script>

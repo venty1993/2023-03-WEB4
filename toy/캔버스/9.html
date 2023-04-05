@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .태양 {
+
+            width: 200px;
+            height: 200px;
+        }
+
+        .지구 {
+            width: 100px;
+            height: 100px;
+        }
+
+        .지구>.h-circle {
+            background-color: #0000ff;
+        }
+
+        .구 {
+            position: relative;
+            transform: rotate3d(1, 1, 1, 0deg);
+            transform-style: preserve-3d;
+        }
+
+        .h-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #892424;
+            transition: 0.5s;
+            border: 1px solid #330000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="태양 구">
+
+    </div>
+
+    <div class="지구 구"></div>
+
+    <script>
+        const balls = document.getElementsByClassName('구');
+        const 해상도 = 10;
+
+        for (let i = 0; i < balls.length; i++) {
+            for (let j = 0; j < 해상도; j++) {
+                balls[i].appendChild(makeSide('x', 180 / 해상도 * j));
+                balls[i].appendChild(makeSide('y', 180 / 해상도 * j));
+                balls[i].appendChild(makeSide('z', 180 / 해상도 * j));
+            }
+        }
+
+        function makeSide(vector, degree) {
+            const side = document.createElement('div');
+            side.classList.add('h-circle');
+            if (vector === 'x') {
+                side.style.transform = `rotate3d(0, 1, 0, ${degree}deg)`
+            } else if (vector === 'y') {
+                side.style.transform = `rotate3d(1, 0, 0, ${degree}deg)`
+            } else {
+                side.style.transform = `rotate3d(1, 1, 0, ${degree}deg)`
+            }
+            return side;
+        }
+
+    </script>
+</body>
+
+</html>
